@@ -12,7 +12,7 @@ td {
 }
 
 #setup {
-	display: none;
+	/* display: none; */
 	margin: 15px;
 }
 
@@ -887,4 +887,58 @@ td {
 	top: 0px;
 	width: 15px;
 
+}
+
+.modal{
+    position:fixed;
+    top: 0;
+    right: 0;
+    bottom:0;
+    left: 0;
+    display: none;
+    animation: fadeIn ease-in 0.2s;
+}
+
+.modal__overlay{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal__body{
+    width: 800px;
+    height: 400px;
+    background-color: white;
+    margin: auto;
+    position: relative;
+    z-index: 1;
+    border-radius: 5px;
+}
+
+.auth-form__container{
+    padding: 0 32px;
+}
+
+.auth-form__header{
+display: flex;
+}
+
+.auth-form__controls > button{
+    min-width: 142px;
+    height: 80px;
+    margin-top: 100px;
+    background-color: #2d4d91;
+    border-radius: 3px;
+}
+
+.modal.open{
+    display: flex;
+}
+
+.tpos{
+	font-size: 2rem;
+	font-family: Arial, Helvetica, sans-serif;
+	display: none;
+	justify-content: center;
 }

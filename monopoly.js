@@ -1299,7 +1299,8 @@ function updatePosition() {
 
 			if (player[y].position == x && !player[y].jail) {
 
-				document.getElementById("cell" + x + "positionholder").innerHTML += "<div class='cell-position' title='" + player[y].name + "' style='background-color: " + player[y].color + "; left: " + left + "px; top: " + top + "px;'></div>";
+				//document.getElementById("cell" + x + "positionholder").innerHTML += "<div class='cell-position' title='" + player[y].name + "' style='background-color: " + player[y].color + "; left: " + left + "px; top: " + top + "px;'></div>";
+				document.getElementById("cell" + x + "positionholder").innerHTML += "<div class='cell-position' title='" + player[y].name + "' style='left: " + left + "px; top: " + top + `px;'><img src='images/${player[y].icon}.png' style='width:20px;' id='icon_img' class='icon_img' alt=''/></div>`;
 				if (left == 36) {
 					left = 0;
 					top = 12;
@@ -1311,7 +1312,8 @@ function updatePosition() {
 		for (var y = 1; y < turn; y++) {
 
 			if (player[y].position == x && !player[y].jail) {
-				document.getElementById("cell" + x + "positionholder").innerHTML += "<div class='cell-position' title='" + player[y].name + "' style='background-color: " + player[y].color + "; left: " + left + "px; top: " + top + "px;'></div>";
+				document.getElementById("cell" + x + "positionholder").innerHTML += "<div class='cell-position' title='" + player[y].name + "' style='left: " + left + "px; top: " + top + `px;'><img src='images/${player[y].icon}.png' style='width:20px;' id='icon_img' class='icon_img' alt=''/></div>`;
+				//document.getElementById("cell" + x + "positionholder").innerHTML += "<div class='cell-position' title='" + player[y].name + "' style='background-color: " + player[y].color + "; left: " + left + "px; top: " + top + "px;'></div>";
 				if (left == 36) {
 					left = 0;
 					top = 12;
@@ -1371,6 +1373,7 @@ function updateMoney() {
 
 		$("#moneybarrow" + i).show();
 		document.getElementById("p" + i + "moneybar").style.border = "2px solid " + p_i.color;
+		document.getElementById("p" + i + "icon").src = `images/${p_i.icon}.png`;
 		document.getElementById("p" + i + "money").innerHTML = p_i.money;
 		document.getElementById("p" + i + "moneyname").innerHTML = p_i.name;
 	}
@@ -2664,6 +2667,7 @@ function setup() {
 
 
 		p.color = document.getElementById("player" + i + "color").value.toLowerCase();
+		p.icon = document.getElementById("player" + i + "icon").value
 
 		if (document.getElementById("player" + i + "ai").value === "0") {
 			p.name = document.getElementById("player" + i + "name").value;
@@ -2675,7 +2679,7 @@ function setup() {
 	}
 
 	$("#board, #moneybar").show();
-	$("#setup").hide();
+	$(".modal").hide();
 
 	if (pcount === 2) {
 		document.getElementById("stats").style.width = "454px";
@@ -2687,6 +2691,9 @@ function setup() {
 	document.getElementById("stats").style.left = "0px";
 
 	play();
+	const tpos = document.querySelector(".tpos");
+	tpos.style.display = "flex";
+	startTimer(tpos);
 }
 
 // function togglecheck(elementid) {
@@ -2804,7 +2811,7 @@ window.onload = function() {
 
 	$("#nextbutton").click(game.next);
 	$("#noscript").hide();
-	$("#setup, #noF5").show();
+	$(".modal, #noF5").show();
 
 	var enlargeWrap = document.body.appendChild(document.createElement("div"));
 
@@ -3065,3 +3072,37 @@ window.onload = function() {
 
 
 };
+
+//document.getElementById("#tpos").style.display = "none"
+//const display = document.querySelector('#time');
+function startTimer(display) {
+    var start = Date.now(),
+        diff,
+        minutes,
+        seconds;
+    function timer() {
+        // get the number of seconds that have elapsed since
+        // startTimer() was called
+        diff = ((Date.now() - start) / 1000);
+
+
+        // does the same job as parseInt truncates the float
+        minutes = (diff / 60) | 0;
+        seconds = (diff % 60) | 0;
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds;
+
+        if (diff <= 0) {
+            // add one second so that the count down starts at the full duration
+            // example 05:00 not 04:59
+            start = Date.now() + 1000;
+        }
+    };
+    // we don't want to wait a full second before the timer starts
+    timer();
+    //1000
+    setInterval(timer, 1000);
+}

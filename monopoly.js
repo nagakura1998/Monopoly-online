@@ -1374,6 +1374,7 @@ function updateMoney() {
 		$("#moneybarrow" + i).show();
 		document.getElementById("p" + i + "moneybar").style.border = "2px solid " + p_i.color;
 		document.getElementById("p" + i + "icon").src = `images/${p_i.icon}.png`;
+		document.getElementById("p" + i + "avartar").src = `images/${p_i.avatar}.png`;
 		document.getElementById("p" + i + "money").innerHTML = p_i.money;
 		document.getElementById("p" + i + "moneyname").innerHTML = p_i.name;
 	}
@@ -2668,12 +2669,15 @@ function setup() {
 
 		p.color = document.getElementById("player" + i + "color").value.toLowerCase();
 		p.icon = document.getElementById("player" + i + "icon").value
+		p.avatar = document.getElementById("player" + i + "icon").value
 
 		if (document.getElementById("player" + i + "ai").value === "0") {
 			p.name = document.getElementById("player" + i + "name").value;
 			p.human = true;
+			p.avatar = "guess";
 		} else if (document.getElementById("player" + i + "ai").value === "1") {
 			p.human = false;
+			p.avatar = "PC";
 			p.AI = new AITest(p);
 		}
 	}
